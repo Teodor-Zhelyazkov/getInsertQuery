@@ -7,50 +7,53 @@
 *
 *   @return String
 *   @example
-*   'INSERT INTO dbName (name ,email ,age)
+*   "INSERT INTO `dbName` (`name` ,`email` ,`age`)
 *       VALUES
 *           (John ,j@asd.com ,25),
-*           (Anna ,a@asd.com ,25),
-*           (Lussile ,l@asd.com ,25)'
+*           (Anna ,a@asd.com ,NULL),
+*           (Lussile ,l@asd.com ,25)"
 */
 function getInsertQuery( $array = array(), $table = NULL)
 {
-    $insert = '';
+    $insert = "";
 
     if( empty( $array ) || !$table )
         return $insert;
 
-    $insert .= 'INSERT INTO ' . $table;
-    $insert .= ' (';
+    $insert .= "INSERT INTO `" . $table . "`";
+    $insert .= " (";
     $array   = array_values( $array );
     $keys    = array_keys( reset($array) );
     foreach ($keys as $k => $keyVal)
         if( count($keys) - 1 == $k )
-            $insert .= $keyVal . ')';
+            $insert .= "`" . $keyVal . "`)";
         else
-            $insert .= $keyVal . ' ,';
+            $insert .= "`" . $keyVal . "` ,";
 
-    $insert .= ' VALUES';
+    $insert .= " VALUES";
 
     foreach ($array as $key => $value)
     {
-        $insert .= ' (';
+        $insert .= " (";
 
         $count = 0;
         foreach ($value as $k => $v)
         {
+            if($v == "")
+                $v .= "NULL";
+
             if( count($value) - 1 == $count )
                 $insert .= $v;
             else
-                $insert .= $v . ' ,';
+                $insert .= $v . " ,";
 
             $count ++;
         }
 
         if( count($array) - 1 == $key )
-            $insert .= ')';
+            $insert .= ")";
         else
-            $insert .= '),';
+            $insert .= "),";
     }
 
     return $insert;
@@ -66,7 +69,7 @@ $arr = array(
     12 => array(
         "name" => "Anna",
         "email" => "a@asd.com",
-        "age" => 25,
+        "age" => "",
     ),
     26 => array(
         "name" => "Lussile",
