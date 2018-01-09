@@ -22,6 +22,7 @@ function getInsertQuery( $array = array(), $table = NULL)
 
     $insert .= 'INSERT INTO ' . $table;
     $insert .= ' (';
+    $array   = array_values( $array );
     $keys    = array_keys( reset($array) );
     foreach ($keys as $k => $keyVal)
         if( count($keys) - 1 == $k )
@@ -62,12 +63,12 @@ $arr = array(
         "email" => "j@asd.com",
         "age" => 25,
     ),
-    1 => array(
+    12 => array(
         "name" => "Anna",
         "email" => "a@asd.com",
         "age" => 25,
     ),
-    2 => array(
+    26 => array(
         "name" => "Lussile",
         "email" => "l@asd.com",
         "age" => 25,
