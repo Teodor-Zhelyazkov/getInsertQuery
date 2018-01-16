@@ -11,7 +11,7 @@
 *           (Anna ,a@asd.com ,NULL),
 *           (Lussile ,l@asd.com ,25)"
 */
-public function getInsertQuery( $array = array(), $table = NULL)
+function getInsertQuery( $array = array(), $table = NULL)
 {
     $insert = "";
     if( empty( $array ) || !$table )
